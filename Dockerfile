@@ -1,12 +1,13 @@
 #name of container: docker-ijulia-notebook
-#versison of container: 0.5.5
+#versison of container: 0.5.6
 FROM quantumobject/docker-baseimage:15.04
 MAINTAINER Angel Rodriguez  "angel@quantumobject.com"
 
 #add repository and update the container
 #Installation of nesesary package/software for this containers...
-RUN add-apt-repository ppa:staticfloat/julianightlies \
-    && add-apt-repository ppa:staticfloat/julia-deps 
+RUN echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu `cat /etc/container_environment/DISTRIB_CODENAME` main " >> /etc/apt/sources.list  \
+    && echo "deb http://ppa.launchpad.net/staticfloat/julia-deps/ubuntu `cat /etc/container_environment/DISTRIB_CODENAME` main" >> /etc/apt/sources.list  \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3D3D3ACC 
 RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     git \
                     build-essential \
@@ -88,35 +89,21 @@ ENV SHELL /bin/bash
 # Install conda
 RUN mkdir -p $CONDA_DIR && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-3.9.1-Linux-x86_64.sh && \
-    echo "6c6b44acdd0bc4229377ee10d52c8ac6160c336d9cdd669db7371aa9344e1ac3 *Miniconda3-3.9.1-Linux-x86_64.sh" | sha256sum -c - && \
-    /bin/bash /Miniconda3-3.9.1-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-3.9.1-Linux-x86_64.sh && \
-    $CONDA_DIR/bin/conda install --yes conda==3.14.1
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh && \
+    /bin/bash /Miniconda3-4.0.5-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
+    rm Miniconda3-4.0.5-Linux-x86_64.sh && \
+    $CONDA_DIR/bin/conda install --yes conda==4.0.5
                     
 # Install Jupyter notebook
-RUN conda install --yes \
-    'notebook=4.0*' \
-    terminado \
+RUN conda install --yes jupyter \
     && conda clean -yt
 
 # Install Python 3 packages
 RUN conda install --yes \
-    'ipywidgets=4.0*' \
-    'pandas=0.16*' \
-    'matplotlib=1.4*' \
-    'scipy=0.15*' \
-    'seaborn=0.6*' \
-    'scikit-learn=0.16*' \
-    'scikit-image=0.11*' \
-    'sympy=0.7*' \
-    'cython=0.22*' \
-    'patsy=0.3*' \
-    'statsmodels=0.6*' \
-    'cloudpickle=0.1*' \
-    'dill=0.2*' \
-    'numba=0.20*' \
-    'bokeh=0.9*' \
+    ipywidgets pandas matplotlib \
+    scipy seaborn scikit-learn scikit-image sympy \
+    cython patsy statsmodels cloudpickle \
+    dill numba bokeh \
     && conda clean -yt
 
 # WORKAROUND: symlink version of zmq required by latest rzmq back into conda lib
@@ -137,8 +124,8 @@ RUN mkdir ipopt; cd ipopt; wget  http://www.coin-or.org/download/source/Ipopt/Ip
     rm -rf ipopt
 
 # Cbc
-RUN mkdir cbc; cd cbc; wget http://www.coin-or.org/download/source/Cbc/Cbc-2.9.7.tgz; \
-    tar -xzf Cbc-2.9.7.tgz; cd Cbc-2.9.7; \
+RUN mkdir cbc; cd cbc; wget http://www.coin-or.org/download/source/Cbc/Cbc-2.9.8.tgz; \
+    tar -xzf Cbc-2.9.8.tgz; cd Cbc-2.9.8; \
     ./configure --prefix=/usr/local --enable-dependency-linking --without-blas --without-lapack --enable-cbc-parallel; \
     make install; \
     echo "/usr/local/lib" > /etc/ld.so.conf.d/cbc.conf; ldconfig; \
@@ -160,15 +147,9 @@ RUN chmod +x /etc/service/ijulia/run
 #pre-config scritp for different service that need to be run when container image is create 
 #maybe include additional software that need to be installed ... with some service running ... like example mysqld
 COPY pre-conf.sh /sbin/pre-conf
-RUN chmod +x /sbin/pre-conf \
+RUN chmod +x /sbin/pre-conf  ; sync \
     && /bin/bash -c /sbin/pre-conf \
     && rm /sbin/pre-conf
-
-##scritp that can be running from the outside using docker-bash tool ...
-## for example to create backup for database with convitation of VOLUME   dockers-bash container_ID backup_mysql
-COPY backup.sh /sbin/backup
-RUN chmod +x /sbin/backup
-VOLUME /var/backups
 
 #add files and script that need to be use for this container
 #include conf file relate to service/daemon 
