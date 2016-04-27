@@ -2,7 +2,7 @@
 
 docker container for [IJulia Notebook][3]
 
-"IJulia is a [Julia-language][6] backend combined with the [IPython][7] interactive environment (soon to be called [Jupyter][8]). This combination allows you to interact with the Julia language using Jupyter/IPython's powerful [graphical notebook][9], which combines code, formatted text, math, and multimedia in a single document"
+"IJulia is a [Julia-language][6] backend combined with [Jupyter][8]. This combination allows you to interact with the Julia language using Jupyter/IPython's powerful [graphical notebook][9], which combines code, formatted text, math, and multimedia in a single document"
 
 This notebook is for the last version in development for Julia if you are looking for the stable version I recomended that used the official docker image from Jupyter:  [jupyter/datascience-notebook][11]   and for more jupyter [docker-stacks][12]
 
@@ -27,17 +27,23 @@ Run the after install script:
 
     $ docker exec -it container_id /sbin/after_install
 
-Need to provide new password and info to generate ssl for access web interface of IJulia.
+Need to provide new password.
 
 ## Accessing the IJulia applications:
 
 After that check with your browser at addresses plus the port 8998:
 
-  - **https://host_ip:8998/**
+  - **http://host_ip:8998/**
 
 To access the container from the server running docker :
 
     $ docker exec -it container_id /bin/bash
+
+note: deploy this container behind proxy with SSL for extra security:
+
+https://github.com/jwilder/nginx-proxy
+
+https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion
 
 ## More Info
 
@@ -45,7 +51,7 @@ About [IJulia][1]
 
 To help improve this container [docker-ijulia][5]
 
-For additional info about us and our projects check our site [www.quantumobject.com][10]
+For additional info about us and our projects check our site [www.quantumobject.org][10]
 
 [1]:https://github.com/JuliaLang/IJulia.jl
 [2]:https://www.docker.com
@@ -56,6 +62,6 @@ For additional info about us and our projects check our site [www.quantumobject.
 [7]:http://ipython.org
 [8]:http://jupyter.org
 [9]:http://ipython.org/notebook.html
-[10]:http://www.quantumobject.com
+[10]:https://www.quantumobject.org
 [11]:https://github.com/jupyter/docker-stacks/tree/master/datascience-notebook
 [12]:https://github.com/jupyter/docker-stacks
