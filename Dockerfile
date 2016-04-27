@@ -1,6 +1,6 @@
 #name of container: docker-ijulia-notebook
 #versison of container: 0.5.6
-FROM quantumobject/docker-baseimage:15.10
+FROM quantumobject/docker-baseimage:15.04
 MAINTAINER Angel Rodriguez  "angel@quantumobject.com"
 
 #add repository and update the container
