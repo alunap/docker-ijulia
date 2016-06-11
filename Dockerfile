@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     unzip \
                     libcairo2 \
                     libcairo2-dev \
+                    libpango-1.0-0 tcltk-defaults glib2.0 \
                     file \
                     python3 \
                     python3-dev  \
@@ -88,6 +89,9 @@ ENV CONDA_DIR /opt/conda
 ENV PATH $CONDA_DIR/bin:$PATH
 ENV SHELL /bin/bash
 
+#provisional ... 
+RUN ln -s  /usr/lib/libgettextlib-0.19.2.so /usr/lib/libgettextlib.so
+
 # Install conda
 RUN mkdir -p $CONDA_DIR && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh && \
@@ -112,6 +116,7 @@ RUN conda install --yes \
 # https://github.com/jupyter/docker-stacks/issues/55
 RUN ln -s /opt/conda/pkgs/zeromq-4.0.*/lib/libzmq.so.4.* /opt/conda/lib/libzmq.so.4 
 RUN ln -s /opt/conda/pkgs/libsodium-0.4.*/lib/libsodium.so.4.* /opt/conda/lib/libsodium.so.4
+
                 
 # Ipopt
 # remove for testing 
