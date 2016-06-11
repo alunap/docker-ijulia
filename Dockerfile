@@ -28,7 +28,6 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     gfortran \
                     gcc \
                     fonts-dejavu \
-                    libnettle4 \
                     julia \
                     libpng12-dev \
                     libglib2.0-dev \
