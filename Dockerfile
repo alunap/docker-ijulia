@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     libcairo2-dev \
                     python3 \
                     python3-dev  \
+                    file \
                     ca-certificates \
                     libsm6 \
                     pandoc \
