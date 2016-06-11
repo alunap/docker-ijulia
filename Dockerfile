@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     unzip \
                     libcairo2 \
                     libcairo2-dev \
+                    file \
                     python3 \
                     python3-dev  \
                     ca-certificates \
