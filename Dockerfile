@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     unzip \
                     libcairo2 \
                     libcairo2-dev \
-                    libpango-1.0-0 tcltk-defaults glib2.0 \
+                    libpango-1.0-0 glib2.0 \
                     file \
                     python3 \
                     python3-dev  \
@@ -90,7 +90,7 @@ ENV PATH $CONDA_DIR/bin:$PATH
 ENV SHELL /bin/bash
 
 #provisional ... 
-RUN ln -s  /usr/lib/libgettextlib-0.19.2.so /usr/lib/libgettextlib.so
+RUN ln -s  /usr/lib/libgettextlib-0.19.4.so /usr/lib/libgettextlib.so
 
 # Install conda
 RUN mkdir -p $CONDA_DIR && \
