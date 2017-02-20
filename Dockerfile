@@ -100,7 +100,7 @@ RUN mkdir -p $CONDA_DIR && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     /bin/bash /Miniconda3-latest-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-latest-Linux-x86_64.sh && \
-    # $CONDA_DIR/bin/conda install --yes conda==4.0.5
+    $CONDA_DIR/bin/conda install --yes conda
                     
 # Install Jupyter notebook
 RUN conda install --yes jupyter \
