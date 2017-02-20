@@ -93,12 +93,14 @@ ENV SHELL /bin/bash
 RUN ln -s  /usr/lib/libgettextlib-0.19.4.so /usr/lib/libgettextlib.so
 
 # Install conda
+# https://repo.continuum.io/miniconda/Miniconda3-4.3.11-Linux-x86_64.sh
+# https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN mkdir -p $CONDA_DIR && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh && \
-    /bin/bash /Miniconda3-4.0.5-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-4.0.5-Linux-x86_64.sh && \
-    $CONDA_DIR/bin/conda install --yes conda==4.0.5
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    /bin/bash /Miniconda3-latest-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
+    rm Miniconda3-latest-Linux-x86_64.sh && \
+    # $CONDA_DIR/bin/conda install --yes conda==4.0.5
                     
 # Install Jupyter notebook
 RUN conda install --yes jupyter \
