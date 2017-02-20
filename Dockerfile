@@ -99,15 +99,10 @@ RUN mkdir -p $CONDA_DIR && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     /bin/bash /Miniconda3-latest-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-latest-Linux-x86_64.sh && \
-    $CONDA_DIR/bin/conda install --yes conda
+    rm Miniconda3-latest-Linux-x86_64.sh
                     
-# Install Jupyter notebook
+# Install Jupyter notebook and python 3 packages ....
 RUN conda install --yes jupyter \
-    && conda clean -yt
-
-# Install Python 3 packages
-RUN conda install --yes \
     ipywidgets pandas matplotlib \
     scipy seaborn scikit-learn scikit-image sympy \
     cython patsy statsmodels cloudpickle \
@@ -118,13 +113,6 @@ RUN conda install --yes \
 # https://github.com/jupyter/docker-stacks/issues/55
 RUN ln -s /opt/conda/pkgs/zeromq-4.0.*/lib/libzmq.so.4.* /opt/conda/lib/libzmq.so.4 
 RUN ln -s /opt/conda/pkgs/libsodium-0.4.*/lib/libsodium.so.4.* /opt/conda/lib/libsodium.so.4
-
-                
-# Ipopt
-# remove for testing 
-
-# Cbc
-# remove for testing
     
 ##startup scripts  
 #Pre-config scrip that maybe need to be run one time only when the container run the first time .. using a flag to don't 
