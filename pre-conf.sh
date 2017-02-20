@@ -14,5 +14,9 @@ julia -e 'Pkg.add("BayesNets"); Pkg.add("PGFPlots"); Pkg.add("GraphLayout");'
 
 julia -e 'Pkg.update();'
 
+# adding iPython Clusters
+pip install ipyparallel
+ipcluster nbextension enable
+
 #to make sure don't return with error from installing IJulia
 echo 'done pre-configuration'
