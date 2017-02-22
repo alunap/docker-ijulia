@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     build-essential \
                     bzip2 \
                     unzip \
-                    libcairo2-dev libpango1.0-dev zlib1g-dev tk-dev tcl-dev \
+                    libcairo2-dev libpango1.0-0 libpango1.0-dev zlib1g-dev tk-dev tcl-dev \
                     glib2.0 \
                     file \
                     python3 \
