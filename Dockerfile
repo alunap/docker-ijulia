@@ -1,6 +1,6 @@
 #name of container: docker-ijulia-notebook
 #versison of container: 0.5.6
-FROM quantumobject/docker-baseimage:15.04
+FROM quantumobject/docker-baseimage:15.10
 MAINTAINER Angel Rodriguez  "angel@quantumobject.com"
 
 #add repository and update the container
@@ -13,8 +13,9 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     build-essential \
                     bzip2 \
                     unzip \
-                    libcairo2 \
-                    libcairo2-dev \
+                    libcairo2-dev libpango1.0-0 libpango1.0-dev zlib1g-dev tk-dev tcl-dev \
+                    glib2.0 \
+                    file \
                     python3 \
                     python3-dev  \
                     file \
@@ -29,7 +30,6 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     gfortran \
                     gcc \
                     fonts-dejavu \
-                    libnettle4 \
                     julia \
                     libpng12-dev \
                     libglib2.0-dev \
@@ -89,20 +89,20 @@ ENV CONDA_DIR /opt/conda
 ENV PATH $CONDA_DIR/bin:$PATH
 ENV SHELL /bin/bash
 
+#provisional ... 
+RUN ln -s  /usr/lib/libgettextlib-0.19.4.so /usr/lib/libgettextlib.so
+
 # Install conda
+# https://repo.continuum.io/miniconda/Miniconda3-4.3.11-Linux-x86_64.sh
+# https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN mkdir -p $CONDA_DIR && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh && \
-    /bin/bash /Miniconda3-4.0.5-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-4.0.5-Linux-x86_64.sh && \
-    $CONDA_DIR/bin/conda install --yes conda==4.0.5
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    /bin/bash /Miniconda3-latest-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
+    rm Miniconda3-latest-Linux-x86_64.sh
                     
-# Install Jupyter notebook
+# Install Jupyter notebook and python 3 packages ....
 RUN conda install --yes jupyter \
-    && conda clean -yt
-
-# Install Python 3 packages
-RUN conda install --yes \
     ipywidgets pandas matplotlib \
     scipy seaborn scikit-learn scikit-image sympy \
     cython patsy statsmodels cloudpickle \
@@ -113,10 +113,10 @@ RUN conda install --yes \
 # https://github.com/jupyter/docker-stacks/issues/55
 RUN ln -s /opt/conda/pkgs/zeromq-4.0.*/lib/libzmq.so.4.* /opt/conda/lib/libzmq.so.4 
 RUN ln -s /opt/conda/pkgs/libsodium-0.4.*/lib/libsodium.so.4.* /opt/conda/lib/libsodium.so.4
-                
+
 # Ipopt
-RUN mkdir ipopt; cd ipopt; wget  http://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.4.tgz; \
-    tar -xzf Ipopt-3.12.4.tgz; cd Ipopt-3.12.4; \
+RUN mkdir ipopt; cd ipopt; wget  http://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.6.tgz; \
+    tar -xzf Ipopt-3.12.6.tgz; cd Ipopt-3.12.6; \
     cd ThirdParty/Blas; ./get.Blas; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ../..; \
     cd ThirdParty/Lapack; ./get.Lapack; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ../..; \
     cd ThirdParty/Mumps; ./get.Mumps; cd ../..; \
@@ -134,7 +134,8 @@ RUN mkdir cbc; cd cbc; wget http://www.coin-or.org/download/source/Cbc/Cbc-2.9.8
     echo "/usr/local/lib" > /etc/ld.so.conf.d/cbc.conf; ldconfig; \
     cd ../..; \
     rm -rf cbc
-    
+
+
 ##startup scripts  
 #Pre-config scrip that maybe need to be run one time only when the container run the first time .. using a flag to don't 
 #run it again ... use for conf for service ... when run the first time ...
