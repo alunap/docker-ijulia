@@ -82,6 +82,7 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     libblosc-dev \
                     libavcodec-ffmpeg56 libavdevice-ffmpeg56 libavfilter-ffmpeg5 \
                     libavformat-ffmpeg56 libavutil-ffmpeg54 libswscale-ffmpeg3 libavresample-ffmpeg2 \ 
+                    libgmp-dev libglpk-dev \
                     && apt-get clean \
                     && rm -rf /tmp/* /var/tmp/*  \
                     && rm -rf /var/lib/apt/lists/*
