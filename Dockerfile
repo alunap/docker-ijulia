@@ -91,6 +91,7 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
 # Configure environment
 ENV CONDA_DIR /opt/conda
 ENV PATH $CONDA_DIR/bin:$PATH
+ENV CONDA_JL_HOME $CONDA_DIR/conda_jl
 ENV SHELL /bin/bash
 
 #provisional ... 
@@ -112,6 +113,9 @@ RUN conda install --yes jupyter \
     cython patsy statsmodels cloudpickle \
     dill numba bokeh \
     && conda clean -yt
+    
+RUN conda create -n conda_jl python \
+    && julia -e 'Pkg.build("Conda")'
 
 # WORKAROUND: symlink version of zmq required by latest rzmq back into conda lib
 # https://github.com/jupyter/docker-stacks/issues/55
