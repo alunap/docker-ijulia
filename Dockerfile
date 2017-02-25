@@ -1,6 +1,6 @@
 #name of container: docker-ijulia-notebook
-#versison of container: 0.5.6
-FROM quantumobject/docker-baseimage:15.10
+#versison of container: 0.5.7
+FROM quantumobject/docker-baseimage:16.04
 MAINTAINER Angel Rodriguez  "angel@quantumobject.com"
 
 #add repository and update the container
@@ -79,6 +79,9 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     libnlopt-dev \
                     openmpi-bin \
                     libopenmpi-dev \
+                    libblosc-dev \
+                    libavcodec-ffmpeg56 libavdevice-ffmpeg56 libavfilter-ffmpeg5 \
+                    libavformat-ffmpeg56 libavutil-ffmpeg54 libswscale-ffmpeg3 libavresample-ffmpeg2 \ 
                     && apt-get clean \
                     && rm -rf /tmp/* /var/tmp/*  \
                     && rm -rf /var/lib/apt/lists/*
@@ -90,7 +93,7 @@ ENV PATH $CONDA_DIR/bin:$PATH
 ENV SHELL /bin/bash
 
 #provisional ... 
-RUN ln -s  /usr/lib/libgettextlib-0.19.4.so /usr/lib/libgettextlib.so
+#RUN ln -s  /usr/lib/libgettextlib-0.19.4.so /usr/lib/libgettextlib.so   #at /usr/lib/x86_64-linux-gnu/libgettextlib.so
 
 # Install conda
 # https://repo.continuum.io/miniconda/Miniconda3-4.3.11-Linux-x86_64.sh
