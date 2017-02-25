@@ -100,8 +100,9 @@ RUN mkdir -p $CONDA_DIR && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     /bin/bash /Miniconda3-latest-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-latest-Linux-x86_64.sh \
-    && conda create -n conda_jl python \
+    rm Miniconda3-latest-Linux-x86_64.sh
+    
+RUN conda create -n conda_jl python \
     && julia -e 'Pkg.build("Conda")'
 
 # Install Jupyter notebook and python 3 packages ....
