@@ -83,6 +83,7 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     libavcodec-ffmpeg56 libavdevice-ffmpeg56 libavfilter-ffmpeg5 \
                     libavformat-ffmpeg56 libavutil-ffmpeg54 libswscale-ffmpeg3 libavresample-ffmpeg2 \ 
                     libgmp-dev libglpk-dev \
+                    libmumps-dev \
                     && apt-get clean \
                     && rm -rf /tmp/* /var/tmp/*  \
                     && rm -rf /var/lib/apt/lists/*
@@ -99,9 +100,8 @@ RUN mkdir -p $CONDA_DIR && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     /bin/bash /Miniconda3-latest-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-latest-Linux-x86_64.sh
-
-RUN conda create -n conda_jl python \
+    rm Miniconda3-latest-Linux-x86_64.sh \
+    && conda create -n conda_jl python \
     && julia -e 'Pkg.build("Conda")'
 
 # Install Jupyter notebook and python 3 packages ....
