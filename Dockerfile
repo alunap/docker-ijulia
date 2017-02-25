@@ -94,18 +94,16 @@ ENV PATH $CONDA_DIR/bin:$PATH
 ENV CONDA_JL_HOME $CONDA_DIR/conda_jl
 ENV SHELL /bin/bash
 
-#provisional ... 
-#RUN ln -s  /usr/lib/libgettextlib-0.19.4.so /usr/lib/libgettextlib.so   #at /usr/lib/x86_64-linux-gnu/libgettextlib.so
-
 # Install conda
-# https://repo.continuum.io/miniconda/Miniconda3-4.3.11-Linux-x86_64.sh
-# https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN mkdir -p $CONDA_DIR && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     /bin/bash /Miniconda3-latest-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-latest-Linux-x86_64.sh
-                    
+
+RUN conda create -n conda_jl python \
+    && julia -e 'Pkg.build("Conda")'
+
 # Install Jupyter notebook and python 3 packages ....
 RUN conda install --yes jupyter \
     ipywidgets pandas matplotlib \
@@ -114,9 +112,6 @@ RUN conda install --yes jupyter \
     dill numba bokeh \
     && conda clean -yt
     
-RUN conda create -n conda_jl python \
-    && julia -e 'Pkg.build("Conda")'
-
 # WORKAROUND: symlink version of zmq required by latest rzmq back into conda lib
 # https://github.com/jupyter/docker-stacks/issues/55
 RUN ln -s /opt/conda/pkgs/zeromq-4.0.*/lib/libzmq.so.4.* /opt/conda/lib/libzmq.so.4 
