@@ -103,7 +103,7 @@ RUN mkdir -p $CONDA_DIR && \
     rm Miniconda3-latest-Linux-x86_64.sh
     
 RUN conda create -n conda_jl python \
-    && julia -e 'Pkg.init() ; Pkg.add("Conda") ;'
+    && julia -e 'Pkg.init() ; Pkg.add("Conda") ;' \
     && julia -e 'Pkg.build("Conda")'
 
 # Install Jupyter notebook and python 3 packages ....
