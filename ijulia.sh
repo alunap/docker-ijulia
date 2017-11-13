@@ -10,7 +10,7 @@ cd /root
 
 if [ -f /etc/secured ]; then
         echo 'already secured'
-        exec jupyter notebook
+        exec jupyter notebook --allow-root
 elif [ -f /etc/msg_secured ]; then
          #do nothing
          wait 1s

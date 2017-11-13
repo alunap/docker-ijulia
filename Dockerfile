@@ -1,10 +1,10 @@
 #name of container: docker-ijulia-notebook
-#versison of container: 0.5.7
+#versison of container: 0.5.8
 FROM quantumobject/docker-baseimage:16.04
 MAINTAINER Angel Rodriguez  "angel@quantumobject.com"
 
-#add repository and update the container
-#Installation of nesesary package/software for this containers...
+# Update the container
+# Installation of nesesary package/software for this containers...
 RUN echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu `cat /etc/container_environment/DISTRIB_CODENAME` main " >> /etc/apt/sources.list  \
     && echo "deb http://ppa.launchpad.net/staticfloat/julia-deps/ubuntu `cat /etc/container_environment/DISTRIB_CODENAME` main" >> /etc/apt/sources.list  \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3D3D3ACC 
