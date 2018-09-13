@@ -18,8 +18,8 @@ ln -s /opt/conda/pkgs/zeromq-4.0.*/lib/libzmq.so.4.* /opt/conda/lib/libzmq.so.4
 ln -s /opt/conda/pkgs/libsodium-0.4.*/lib/libsodium.so.4.* /opt/conda/lib/libsodium.so.4
 
 # Ipopt
-mkdir ipopt; cd ipopt; wget  http://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.6.tgz
-tar -xzf Ipopt-3.12.6.tgz; cd Ipopt-3.12.6
+mkdir ipopt; cd ipopt; wget  http://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.10.tgz
+tar -xzf Ipopt-3.12.10.tgz; cd Ipopt-3.12.10
 cd ThirdParty/Blas; ./get.Blas; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ../..
 cd ThirdParty/Lapack; ./get.Lapack; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ../..
 cd ThirdParty/Mumps; ./get.Mumps; cd ../..
@@ -30,8 +30,8 @@ cd ../..
 rm -rf ipopt
 
 # Cbc
-mkdir cbc; cd cbc; wget http://www.coin-or.org/download/source/Cbc/Cbc-2.9.8.tgz
-tar -xzf Cbc-2.9.8.tgz; cd Cbc-2.9.8
+mkdir cbc; cd cbc; wget http://www.coin-or.org/download/source/Cbc/Cbc-2.9.9.tgz
+tar -xzf Cbc-2.9.9.tgz; cd Cbc-2.9.9
 ./configure --prefix=/usr/local --enable-dependency-linking --without-blas --without-lapack --enable-cbc-parallel
 make install
 echo "/usr/local/lib" > /etc/ld.so.conf.d/cbc.conf; ldconfig
