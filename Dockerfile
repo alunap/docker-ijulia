@@ -27,7 +27,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-
                     gfortran \
                     gcc \
                     fonts-dejavu \
-                    libpng12-dev \
                     libglib2.0-dev \
                     librsvg2-dev \
                     libpixman-1-dev \
@@ -64,14 +63,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-
                     python3-requests \
                     python3-numpy \
                     python3-isodate \
-                    libsundials-cvode1 \
                     libsundials-cvodes2 \
                     libsundials-ida2 \
-                    libsundials-idas0 \
-                    libsundials-kinsol1 \
-                    libsundials-nvecserial0 \
-                    libsundials-serial \
-                    libsundials-serial-dev \
                     libnlopt-dev \
                     openmpi-bin \
                     libopenmpi-dev \
