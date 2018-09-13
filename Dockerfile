@@ -76,8 +76,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-
                     openmpi-bin \
                     libopenmpi-dev \
                     libblosc-dev \
-                    libavcodec-ffmpeg56 libavdevice-ffmpeg56 libavfilter-ffmpeg5 tzdata\
-                    libavformat-ffmpeg56 libavutil-ffmpeg54 libswscale-ffmpeg3 libavresample-ffmpeg2 \ 
+                    ffmpeg  tzdata\
                     libgmp-dev libglpk-dev \
                     libmumps-dev \
                     && apt-get clean \
@@ -106,10 +105,7 @@ ENV SHELL /bin/bash
 # Show Julia where conda libraries are \
 RUN mkdir /etc/julia && \
     echo "push!(Libdl.DL_LOAD_PATH, \"$CONDA_DIR/lib\")" >> /etc/julia/juliarc.jl && \
-    # Create JULIA_PKGDIR \
-    mkdir $JULIA_PKGDIR && \
-    # chown $NB_USER $JULIA_PKGDIR && \
-    # fix-permissions $JULIA_PKGDIR
+    mkdir $JULIA_PKGDIR 
 
 ##startup scripts  
 #Pre-config scrip that maybe need to be run one time only when the container run the first time .. using a flag to don't 
