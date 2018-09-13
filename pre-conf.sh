@@ -46,9 +46,6 @@ julia -e 'Pkg.add("Images"); Pkg.add("ImageView"); Pkg.add("WAV"); Pkg.add("ODE"
 julia -e 'Pkg.add("BayesNets"); Pkg.add("PGFPlots"); Pkg.add("GraphLayout"); Pkg.add("Winston");'
 julia -e 'Pkg.update();'
 
-#remove because fail to install on Julia 0.5
-#  Pkg.add("SVM");
-
 # adding iPython Clusters
 pip install ipyparallel
 ipcluster nbextension enable
