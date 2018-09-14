@@ -8,7 +8,7 @@
  rm Miniconda3-latest-Linux-x86_64.sh
 
 conda create -n conda_jl python
-julia -e 'using Pkg ; Pkg.init() ; Pkg.add("Conda") ; Pkg.build("Conda") ; '
+julia -e 'using Pkg ; Pkg.add("Conda") ; Pkg.build("Conda") ; '
 
 conda install --yes jupyter ipywidgets pandas matplotlib \
 scipy seaborn scikit-learn scikit-image sympy cython patsy statsmodels cloudpickle dill numba bokeh
