@@ -8,8 +8,7 @@
  rm Miniconda3-latest-Linux-x86_64.sh
 
 conda create -n conda_jl python
-julia -e 'Pkg.init() ; Pkg.add("Conda") ;'
-julia -e 'Pkg.build("Conda")'
+julia -e 'using Pkg ; Pkg.init() ; Pkg.add("Conda") ; Pkg.build("Conda") ; '
 
 conda install --yes jupyter ipywidgets pandas matplotlib \
 scipy seaborn scikit-learn scikit-image sympy cython patsy statsmodels cloudpickle dill numba bokeh
@@ -45,7 +44,7 @@ JUPYTER=$(which jupyter) julia -e 'using Pkg ; Pkg.add("DataFrames"); Pkg.add("R
 JUPYTER=$(which jupyter) julia -e 'using Pkg ; Pkg.add("Optim"); Pkg.add("JuMP"); Pkg.add("GLPKMathProgInterface"); Pkg.add("Clp"); Pkg.add("NLopt"); Pkg.add("Ipopt");'
 JUPYTER=$(which jupyter) julia -e 'using Pkg ; Pkg.add("Images"); Pkg.add("ImageView"); Pkg.add("WAV"); Pkg.add("ODE"); Pkg.add("Sundials"); Pkg.add("LinearLeastSquares");'
 JUPYTER=$(which jupyter) julia -e 'using Pkg ; Pkg.add("BayesNets"); Pkg.add("PGFPlots"); Pkg.add("GraphLayout"); Pkg.add("Winston");'
-JUPYTER=$(which jupyter) julia -e 'using Pkg ; Pkg.update();'
+# JUPYTER=$(which jupyter) julia -e 'using Pkg ; Pkg.update();'
 
 # adding iPython Clusters
 pip install ipyparallel
