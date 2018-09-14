@@ -10,7 +10,7 @@ This notebook is for the last version in development for Julia if you are lookin
 
   - [Docker][2]
 
-To install docker in Ubuntu 16.04 use the commands:
+To install docker in Ubuntu 18.04 use the commands:
 
     $ sudo apt-get update
     $ sudo wget -qO- https://get.docker.com/ | sh
@@ -47,13 +47,12 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion
 
 ## More Info
 
-About [IJulia][1]
+About [IJulia][3]
 
 To help improve this container [docker-ijulia][5]
 
 For additional info about us and our projects check our site [www.quantumobject.org][10]
 
-[1]:https://github.com/JuliaLang/IJulia.jl
 [2]:https://www.docker.com
 [3]:https://github.com/JuliaLang/IJulia.jl
 [4]:http://docs.docker.com

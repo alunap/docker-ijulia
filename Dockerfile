@@ -1,14 +1,11 @@
 #name of container: docker-ijulia-notebook
-#versison of container: 0.5.8
-FROM quantumobject/docker-baseimage:16.04
+#versison of container: 0.6.1
+FROM quantumobject/docker-baseimage:18.04
 MAINTAINER Angel Rodriguez  "angel@quantumobject.com"
 
 # Update the container
 # Installation of nesesary package/software for this containers...
-RUN echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu `cat /etc/container_environment/DISTRIB_CODENAME` main " >> /etc/apt/sources.list  \
-    && echo "deb http://ppa.launchpad.net/staticfloat/julia-deps/ubuntu `cat /etc/container_environment/DISTRIB_CODENAME` main" >> /etc/apt/sources.list  \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3D3D3ACC 
-RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends apt-utils \
                     git \
                     build-essential \
                     bzip2 \
@@ -30,8 +27,6 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     gfortran \
                     gcc \
                     fonts-dejavu \
-                    julia \
-                    libpng12-dev \
                     libglib2.0-dev \
                     librsvg2-dev \
                     libpixman-1-dev \
@@ -68,32 +63,42 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends apt-utils \
                     python3-requests \
                     python3-numpy \
                     python3-isodate \
-                    libsundials-cvode1 \
                     libsundials-cvodes2 \
                     libsundials-ida2 \
-                    libsundials-idas0 \
-                    libsundials-kinsol1 \
-                    libsundials-nvecserial0 \
-                    libsundials-serial \
-                    libsundials-serial-dev \
                     libnlopt-dev \
                     openmpi-bin \
                     libopenmpi-dev \
                     libblosc-dev \
-                    libavcodec-ffmpeg56 libavdevice-ffmpeg56 libavfilter-ffmpeg5 \
-                    libavformat-ffmpeg56 libavutil-ffmpeg54 libswscale-ffmpeg3 libavresample-ffmpeg2 \ 
+                    ffmpeg  tzdata\
                     libgmp-dev libglpk-dev \
                     libmumps-dev \
                     && apt-get clean \
                     && rm -rf /tmp/* /var/tmp/*  \
                     && rm -rf /var/lib/apt/lists/*
-                    
+
+# Julia dependencies
+# install Julia packages in /opt/julia instead of $HOME
+ENV JULIA_PKGDIR=/opt/julia
+ENV JULIA_VERSION=1.0.0
+
+RUN mkdir /opt/julia-${JULIA_VERSION} && \
+    cd /tmp && \
+    wget -q https://julialang-s3.julialang.org/bin/linux/x64/`echo ${JULIA_VERSION} | cut -d. -f 1,2`/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
+    echo "bea4570d7358016d8ed29d2c15787dbefaea3e746c570763e7ad6040f17831f3 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
+    tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C /opt/julia-${JULIA_VERSION} --strip-components=1 && \
+    rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
+RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
 # Configure environment
 ENV CONDA_DIR /opt/conda
 ENV PATH $CONDA_DIR/bin:$PATH
 ENV CONDA_JL_HOME $CONDA_DIR/conda_jl
 ENV SHELL /bin/bash
+
+# Show Julia where conda libraries are \
+RUN mkdir /etc/julia && \
+    echo "push!(Libdl.DL_LOAD_PATH, \"$CONDA_DIR/lib\")" >> /etc/julia/juliarc.jl && \
+    mkdir $JULIA_PKGDIR 
 
 ##startup scripts  
 #Pre-config scrip that maybe need to be run one time only when the container run the first time .. using a flag to don't 
