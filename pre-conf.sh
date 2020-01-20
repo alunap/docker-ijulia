@@ -17,24 +17,24 @@ ln -s /opt/conda/pkgs/zeromq-4.0.*/lib/libzmq.so.4.* /opt/conda/lib/libzmq.so.4
 ln -s /opt/conda/pkgs/libsodium-0.4.*/lib/libsodium.so.4.* /opt/conda/lib/libsodium.so.4
 
 # Ipopt
-mkdir ipopt; cd ipopt; wget  http://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.13.tgz
-tar -xzf Ipopt-3.12.13.tgz; cd Ipopt-3.12.13
+mkdir ipopt; cd ipopt; wget -O Ipopt.tgz http://www.coin-or.org/download/source/Ipopt/Ipopt-3.13.0.tgz
+tar -xzf Ipopt.tgz --strip-components 1
 cd ThirdParty/Blas; ./get.Blas; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ../..
 cd ThirdParty/Lapack; ./get.Lapack; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ../..
 cd ThirdParty/Mumps; ./get.Mumps; cd ../..
 ./configure --prefix=/usr/local --enable-dependency-linking --with-blas=/usr/local/lib/libcoinblas.a --with-lapack=/usr/local/lib/libcoinlapack.a
 make install 
 echo "/usr/local/lib" > /etc/ld.so.conf.d/ipopt.conf; ldconfig
-cd ../.. 
+cd ..
 rm -rf ipopt
 
 # Cbc
-mkdir cbc; cd cbc; wget http://www.coin-or.org/download/source/Cbc/Cbc-2.10.3.tgz
-tar -xzf Cbc-2.10.3.tgz; cd Cbc-2.10.3
+mkdir cbc; cd cbc; wget -O  Cbc.tgz http://www.coin-or.org/download/source/Cbc/Cbc-2.10.3.tgz
+tar -xzf Cbc.tgz --strip-components 1 
 ./configure --prefix=/usr/local --enable-dependency-linking --without-blas --without-lapack --enable-cbc-parallel
 make install
 echo "/usr/local/lib" > /etc/ld.so.conf.d/cbc.conf; ldconfig
-cd ../..
+cd ..
 rm -rf cbc
 
 jupyter notebook --generate-config
