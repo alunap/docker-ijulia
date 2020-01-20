@@ -79,7 +79,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-
 # Julia dependencies
 # install Julia packages in /opt/julia instead of $HOME
 ENV JULIA_PKGDIR=/opt/julia
-ENV JULIA_VERSION=1.1.1
+ENV JULIA_VERSION=1.3.1
 
 RUN mkdir /opt/julia-${JULIA_VERSION} && \
     cd /tmp && \
