@@ -54,6 +54,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-
                     python-poppler \
                     python3-crypto \
                     python3-msgpack \
+                    coinor-* python-matplotlib python-matplotlib \
                     libffi-dev \
                     libssl-dev \
                     libzmq3-dev \
