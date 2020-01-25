@@ -19,9 +19,12 @@ ln -s /opt/conda/pkgs/libsodium-0.4.*/lib/libsodium.so.4.* /opt/conda/lib/libsod
 # Ipopt
 mkdir ipopt; cd ipopt; wget -O Ipopt.tgz http://www.coin-or.org/download/source/Ipopt/Ipopt-3.13.0.tgz
 tar -xzf Ipopt.tgz --strip-components 1
-cd ThirdParty/Blas; ./get.Blas; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ../..
-cd ThirdParty/Lapack; ./get.Lapack; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ../..
-cd ThirdParty/Mumps; ./get.Mumps; cd ../..
+git clone https://github.com/coin-or-tools/ThirdParty-Blas.git
+git clone https://github.com/coin-or-tools/ThirdParty-Lapack.git
+git clone https://github.com/coin-or-tools/ThirdParty-Mumps.git
+cd ThirdParty-Blas; ./get.Blas; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ..
+cd ThirdParty-Lapack; ./get.Lapack; ./configure --prefix=/usr/local --disable-shared --with-pic; make install; cd ..
+cd ThirdParty-Mumps; ./get.Mumps; ./configure --prefix=/usr/local --disable-shared --with-pic; make install;  cd ..
 ./configure --prefix=/usr/local --enable-dependency-linking --with-blas=/usr/local/lib/libcoinblas.a --with-lapack=/usr/local/lib/libcoinlapack.a
 make install 
 echo "/usr/local/lib" > /etc/ld.so.conf.d/ipopt.conf; ldconfig
