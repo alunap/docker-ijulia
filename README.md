@@ -21,11 +21,11 @@ To install docker in Ubuntu 18.04 use the commands:
 
 To run container use the command below:
 
-    $ docker run -d -p 8998:8998 quantumobject/docker-ijulia
+    $ docker run -d -p 8998:8998 --name ijulia quantumobject/docker-ijulia
 
 Run the after install script:
 
-    $ docker exec -it container_id /sbin/after_install
+    $ docker exec -it ijulia after_install
 
 Need to provide new password.
 
@@ -37,7 +37,7 @@ After that check with your browser at addresses plus the port 8998:
 
 To access the container from the server running docker :
 
-    $ docker exec -it container_id /bin/bash
+    $ docker exec -it ijulia /bin/bash
 
 note: deploy this container behind proxy with SSL for extra security:
 
