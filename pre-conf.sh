@@ -10,7 +10,7 @@
 conda create -n conda_jl python
 julia -e 'using Pkg ; Pkg.add("Conda") ; Pkg.build("Conda") ; '
 
-conda install --yes jupyter ipywidgets pandas matplotlib \
+conda install --yes jupyter ipywidgets pandas matplotlib ipyparallel jupyterlab \
 scipy seaborn scikit-learn scikit-image sympy cython patsy statsmodels cloudpickle dill numba bokeh
 
 ln -s /opt/conda/pkgs/zeromq-4.0.*/lib/libzmq.so.4.* /opt/conda/lib/libzmq.so.4 
@@ -26,7 +26,6 @@ JUPYTER=$(which jupyter) julia -e 'using Pkg ; Pkg.add("BayesNets"); Pkg.add("PG
 # JUPYTER=$(which jupyter) julia -e 'using Pkg ; Pkg.update();'
 
 # adding iPython Clusters
-pip install ipyparallel
 ipcluster nbextension enable
 
 #to reduce space
