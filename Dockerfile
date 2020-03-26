@@ -13,9 +13,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-
                     libcairo2-dev libpango1.0-0 libpango1.0-dev zlib1g-dev tk-dev tcl-dev \
                     glib2.0 \
                     file \
-                    python3 \
-                    python3-dev  \
-                    file \
                     ca-certificates \
                     libsm6 \
                     pandoc \
@@ -45,25 +42,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-
                     pdf2svg \
                     libc6 \
                     libc6-dev \
-                    python-distribute \
-                    python3-software-properties \
                     software-properties-common \
-                    python3-setuptools \
-                    python3-yaml \
-                    python-m2crypto \
-                    python-poppler \
-                    python3-crypto \
-                    python3-msgpack \
-                    coinor-* python-matplotlib libtool \
+                    coinor-* libtool \
                     libffi-dev \
                     libssl-dev \
                     libzmq3-dev \
-                    python3-pip \
-                    python3-zmq \
-                    python3-jinja2 \
-                    python3-requests \
-                    python3-numpy \
-                    python3-isodate \
                     libsundials-cvodes2 \
                     libsundials-ida2 \
                     libnlopt-dev \
