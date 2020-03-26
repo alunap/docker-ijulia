@@ -7,7 +7,6 @@ MAINTAINER Angel Rodriguez  "angel@quantumobject.com"
 # Installation of nesesary package/software for this containers...
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends apt-utils \
                     git \
-                    build-essential \
                     bzip2 \
                     unzip \
                     libcairo2-dev libpango1.0-0 libpango1.0-dev zlib1g-dev tk-dev tcl-dev \
@@ -16,10 +15,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-
                     ca-certificates \
                     libsm6 \
                     pandoc \
-                    texlive-latex-base \
-                    texlive-latex-extra \
-                    texlive-fonts-extra \
-                    texlive-fonts-recommended \
+                    texlive \
                     libxrender1 \
                     gfortran \
                     gcc \
