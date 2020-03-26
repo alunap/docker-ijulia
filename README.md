@@ -34,6 +34,10 @@ Need to provide new password.
 After that check with your browser at addresses plus the port 8998:
 
   - **http://host_ip:8998/**
+  
+  and for experimental Jupyter lab : 
+  
+   - **http://host_ip:8998/lab/**
 
 To access the container from the server running docker :
 
