@@ -43,7 +43,7 @@ To access the container from the server running docker :
 
     $ docker exec -it ijulia /bin/bash
 
-note: deploy this container behind proxy with SSL for extra security:
+note: Too add extension for JupyterLab you need to install NodeJS and npm by `apt update & apt install nodejs npm ` . Deploy this container behind proxy with SSL for extra security :
 
 https://github.com/jwilder/nginx-proxy
 
