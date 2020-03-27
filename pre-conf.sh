@@ -29,7 +29,7 @@ JUPYTER=$(which jupyter) julia -e 'using Pkg ; Pkg.update();'
 ipcluster nbextension enable
 
 #to reduce space
-conda clean -yt
+conda clean --all -f -y -q
 
 #to make sure don't return with error from installing IJulia
 echo 'done pre-configuration'
