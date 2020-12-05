@@ -1,7 +1,7 @@
 #name of container: docker-ijulia-notebook
 #versison of container: 0.6.3
 FROM quantumobject/docker-baseimage:18.04
-MAINTAINER Angel Rodriguez  "angel@quantumobject.com"
+MAINTAINER Alun ap Rhisiart  "coding@alunaprhisiart.uk"
 
 # Update the container
 # Installation of nesesary package/software for this containers...
@@ -64,7 +64,7 @@ ENV JULIA_VERSION=1.5.3
 RUN mkdir /opt/julia-${JULIA_VERSION} && \
     cd /tmp && \
     wget -q https://julialang-s3.julialang.org/bin/linux/x64/`echo ${JULIA_VERSION} | cut -d. -f 1,2`/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
-    echo "30d126dc3598f3cd0942de21cc38493658037ccc40eb0882b3b4c418770ca751 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
+    echo "f190c938dd6fed97021953240523c9db448ec0a6760b574afd4e9924ab5615f1 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
     tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C /opt/julia-${JULIA_VERSION} --strip-components=1 && \
     rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
