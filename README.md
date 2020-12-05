@@ -1,4 +1,6 @@
-# docker-ijulia
+# ijulia_ml
+
+This is a fork by Alun ap Rhisiart of the excellent IJulia container by Angel Rodriquez of Quantum Object. I have modified it to include packages more suitable for statistics and machine learning rather than maths. It includes the DrWatson package, as well as Flux, DecisionTrees, and ScikitLearn for ML, and HypothesisTests, StatsModels, and other statistics packages. Also added PyCall and Pandas for interaction with python, and NBInclude for better usage of Jupyter notebooks.
 
 docker container for [IJulia Notebook][3]
 
@@ -21,7 +23,7 @@ To install docker in Ubuntu 18.04 use the commands:
 
 To run container use the command below:
 
-    $ docker run -d -p 8998:8998 --name ijulia quantumobject/docker-ijulia
+    $ docker run -d -p 8998:8998 --name ijulia alunapr/docker-ijulia
 
 Run the after install script:
 
